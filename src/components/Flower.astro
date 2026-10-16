@@ -1,0 +1,26 @@
+---
+interface Props {
+  class?: string;
+  [key: string]: unknown;
+}
+const { class: className, ...rest } = Astro.props;
+---
+
+<!-- Flor de 5 pétalos -->
+<svg
+  class={className}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.1"
+  stroke-linecap="round"
+  aria-hidden="true"
+  {...rest}
+>
+  <ellipse cx="12" cy="6.4" rx="2.9" ry="4.8"></ellipse>
+  <ellipse cx="12" cy="6.4" rx="2.9" ry="4.8" transform="rotate(72 12 12)"></ellipse>
+  <ellipse cx="12" cy="6.4" rx="2.9" ry="4.8" transform="rotate(144 12 12)"></ellipse>
+  <ellipse cx="12" cy="6.4" rx="2.9" ry="4.8" transform="rotate(216 12 12)"></ellipse>
+  <ellipse cx="12" cy="6.4" rx="2.9" ry="4.8" transform="rotate(288 12 12)"></ellipse>
+  <circle cx="12" cy="12" r="1.7" fill="currentColor" stroke="none" opacity="0.5"></circle>
+</svg>

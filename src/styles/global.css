@@ -1,0 +1,352 @@
+@import "tailwindcss";
+
+/* ============================================================
+   Carta — sistema de diseño editorial
+   ============================================================ */
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Jost", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-hand: "Great Vibes", "Segoe Script", cursive;
+
+  --color-cream: #f8f1ec;
+  --color-paper: #fffdfb;
+  --color-ink: #3a2a31;
+  --color-muted: #94737f;
+  --color-rose: #b06a86;
+  --color-rose-deep: #8f4a66;
+  --color-rose-soft: #e7c4d1;
+  --color-line: #ecd9e0;
+  --color-wax: #9c4560;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--color-rose-soft);
+    color: var(--color-rose-deep);
+  }
+}
+
+/* Evita el pequeño salto de caracteres al dividir texto (SplitText). */
+[data-split],
+[data-signature] {
+  font-kerning: none;
+  text-rendering: optimizeSpeed;
+}
+
+/* ------------------------------------------------------------
+   Fondo: lavado suave + grano (sin blobs ni gradientes llamativos)
+   ------------------------------------------------------------ */
+.wash {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    130% 100% at 50% 0%,
+    #fff8f4 0%,
+    #f8f1ec 55%,
+    #f2e6e5 100%
+  );
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------------------
+   INTRO — el sobre
+   ------------------------------------------------------------ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: radial-gradient(
+    120% 100% at 50% 0%,
+    #fff8f4 0%,
+    #f8ecf0 55%,
+    #f3e2e8 100%
+  );
+}
+
+.intro.is-hidden {
+  pointer-events: none;
+}
+
+.intro__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.intro__kicker {
+  margin-bottom: 1.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.intro__hint {
+  margin-top: 2.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-rose-deep);
+}
+
+.envelope {
+  position: relative;
+  width: min(80vw, 400px);
+  aspect-ratio: 3 / 2;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  background: transparent;
+  transform-style: preserve-3d;
+  outline: none;
+}
+.envelope:focus-visible {
+  outline: 2px solid var(--color-rose-deep);
+  outline-offset: 14px;
+  border-radius: 12px;
+}
+
+.envelope__shadow {
+  position: absolute;
+  left: 7%;
+  right: 7%;
+  bottom: -8%;
+  height: 11%;
+  border-radius: 9999px;
+  background: rgba(58, 42, 49, 0.16);
+  filter: blur(16px);
+}
+
+.envelope__back,
+.envelope__front,
+.envelope__flap,
+.envelope__paper {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+}
+
+.envelope__back {
+  z-index: 1;
+  background: linear-gradient(160deg, #f6dee6, #e9bccb);
+  box-shadow: 0 24px 48px -22px rgba(58, 42, 49, 0.5);
+}
+
+.envelope__paper {
+  z-index: 2;
+  inset: 6% 7% auto 7%;
+  height: 88%;
+  border-radius: 6px;
+  background: linear-gradient(180deg, #fffefc, #fdf4f6);
+  box-shadow: 0 -6px 18px -8px rgba(58, 42, 49, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.25rem;
+}
+
+.envelope__paper-line {
+  height: 5px;
+  border-radius: 9999px;
+  background: var(--color-rose-soft);
+}
+
+.envelope__front {
+  z-index: 3;
+  background: linear-gradient(200deg, #f4d3de, #e6aac1);
+  clip-path: polygon(0 0, 0 100%, 100% 100%, 100% 0, 50% 62%);
+}
+
+.envelope__flap {
+  z-index: 4;
+  background: linear-gradient(180deg, #f3d0dc, #e2a4bd);
+  clip-path: polygon(0 0, 100% 0, 50% 78%);
+  transform-origin: top center;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 18px -12px rgba(58, 42, 49, 0.45);
+}
+
+.envelope__seal {
+  position: absolute;
+  z-index: 5;
+  top: 52%;
+  left: 50%;
+  width: 19%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  display: grid;
+  place-items: center;
+  color: #fff5f8;
+  background: radial-gradient(circle at 35% 30%, #b25a76, #8b3f57 72%);
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.35),
+    0 8px 16px -8px rgba(58, 42, 49, 0.7);
+}
+
+/* ------------------------------------------------------------
+   LA CARTA
+   ------------------------------------------------------------ */
+.letter-wrap {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 8vw, 5rem) clamp(1rem, 5vw, 2rem)
+    clamp(3rem, 10vw, 6rem);
+}
+
+.paper {
+  --frame: clamp(0.7rem, 3vw, 1.2rem);
+  position: relative;
+  border-radius: 6px;
+  border: 1px solid var(--color-line);
+  background: linear-gradient(180deg, #fffefd 0%, #fffcfb 100%);
+  padding: clamp(3.25rem, 9vw, 5.5rem) clamp(1.75rem, 7vw, 5rem);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.9) inset,
+    0 34px 70px -40px rgba(58, 42, 49, 0.45),
+    0 8px 22px -16px rgba(58, 42, 49, 0.28);
+}
+
+/* Marco interior fino (aire de papelería clásica) */
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: var(--frame);
+  border: 1px solid var(--color-line);
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Esquinas decorativas */
+.corner {
+  position: absolute;
+  width: clamp(20px, 6vw, 34px);
+  height: auto;
+  color: var(--color-rose);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.corner--tl {
+  top: var(--frame);
+  left: var(--frame);
+}
+.corner--tr {
+  top: var(--frame);
+  right: var(--frame);
+  transform: rotate(90deg);
+}
+.corner--br {
+  right: var(--frame);
+  bottom: var(--frame);
+  transform: rotate(180deg);
+}
+.corner--bl {
+  bottom: var(--frame);
+  left: var(--frame);
+  transform: rotate(270deg);
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  max-width: 13rem;
+  margin: 0 auto clamp(2rem, 6vw, 3.25rem);
+  color: var(--color-rose-soft);
+}
+.rule::before,
+.rule::after {
+  content: "";
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, transparent, var(--color-line), transparent);
+}
+.rule--end {
+  margin: clamp(2rem, 6vw, 3.25rem) auto 0;
+}
+.rule__flower {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  color: var(--color-rose);
+}
+
+/* Brote inferior */
+.sprout-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.25rem, 7vw, 3.5rem);
+}
+.sprout {
+  width: clamp(42px, 13vw, 62px);
+  height: auto;
+  color: var(--color-rose);
+  opacity: 0.6;
+}
+
+.letter {
+  font-family: var(--font-serif);
+  font-size: clamp(1.12rem, 3.6vw, 1.4rem);
+  line-height: 1.95;
+  letter-spacing: 0.015em;
+  color: var(--color-ink);
+}
+.letter p + p {
+  margin-top: 1.6em;
+}
+
+/* ------------------------------------------------------------
+   Menos movimiento
+   ------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ------------------------------------------------------------
+   Estado inicial antes de que GSAP tome el control.
+   Si no hay JS, el contenido se ve igual (sólo se oculta con .js).
+   ------------------------------------------------------------ */
+.js [data-anim] {
+  opacity: 0;
+}
+
+.anim-fallback [data-anim] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+}

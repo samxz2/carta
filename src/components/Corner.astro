@@ -1,0 +1,40 @@
+---
+interface Props {
+  class?: string;
+  [key: string]: unknown;
+}
+const { class: className, ...rest } = Astro.props;
+---
+
+<!-- Esquinero botánico (orientación superior-izquierda; se rota con CSS) -->
+<svg
+  class={className}
+  viewBox="0 0 56 56"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.05"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  {...rest}
+>
+  <path
+    d="M17 12 C 27 8.5 37 8.5 46 12 C 37 15.5 27 15.5 17 12 Z"
+    fill="currentColor"
+    stroke="none"
+    opacity="0.26"></path>
+  <path
+    d="M12 17 C 8.5 27 8.5 37 12 46 C 15.5 37 15.5 27 12 17 Z"
+    fill="currentColor"
+    stroke="none"
+    opacity="0.26"></path>
+
+  <g transform="translate(13 13)">
+    <ellipse cx="0" cy="-5.5" rx="2.7" ry="4.4"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2.7" ry="4.4" transform="rotate(72)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2.7" ry="4.4" transform="rotate(144)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2.7" ry="4.4" transform="rotate(216)"></ellipse>
+    <ellipse cx="0" cy="-5.5" rx="2.7" ry="4.4" transform="rotate(288)"></ellipse>
+    <circle r="1.5" fill="currentColor" stroke="none" opacity="0.5"></circle>
+  </g>
+</svg>

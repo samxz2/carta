@@ -1,0 +1,47 @@
+---
+interface Props {
+  class?: string;
+  [key: string]: unknown;
+}
+const { class: className, ...rest } = Astro.props;
+---
+
+<!-- Brote: tallo, tres hojas y una flor -->
+<svg
+  class={className}
+  viewBox="0 0 60 60"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.05"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+  {...rest}
+>
+  <path d="M30 58 V24"></path>
+
+  <path
+    d="M30 46 C 22 46 17 41 16 35 C 24 36 29 40 30 46 Z"
+    fill="currentColor"
+    stroke="none"
+    opacity="0.26"></path>
+  <path
+    d="M30 40 C 38 40 43 35 44 29 C 36 30 31 34 30 40 Z"
+    fill="currentColor"
+    stroke="none"
+    opacity="0.26"></path>
+  <path
+    d="M30 33 C 24 33 20 29 19 24 C 25 25 29 28 30 33 Z"
+    fill="currentColor"
+    stroke="none"
+    opacity="0.2"></path>
+
+  <g transform="translate(30 18)">
+    <ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2"></ellipse>
+    <ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(72)"></ellipse>
+    <ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(144)"></ellipse>
+    <ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(216)"></ellipse>
+    <ellipse cx="0" cy="-5.2" rx="2.6" ry="4.2" transform="rotate(288)"></ellipse>
+    <circle r="1.4" fill="currentColor" stroke="none" opacity="0.5"></circle>
+  </g>
+</svg>

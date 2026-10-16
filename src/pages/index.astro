@@ -1,0 +1,88 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Flower from "../components/Flower.astro";
+import Corner from "../components/Corner.astro";
+import Sprout from "../components/Sprout.astro";
+
+/* ============================================================================
+   ✏️  TU TEXTO — tal cual, en mayúsculas.
+   Sólo está dividido en dos párrafos donde vos ya tenías "?" y ".".
+   No se cambió ni una letra. Para editar: cambiá los strings de abajo.
+   ============================================================================ */
+const body = [
+  "HOLLAA AMOR BUENO TEKERIA DECIRR UNMONTON DE COSAS SABESSS PORQUE TEAMOOO UN MONTONNNNNNN EJJJEJEJE TEKERIA DECIR QUE DIODDD, AMOHABLAR CONTIGOO AMOTODO DE VOS SABES AMO COMO SOS, SUPER TIERNA CONMIGO SABEDDDD?",
+  "TEADORO UNMONTON AMOOOO CUANDO ME DICES MI BEBE O COSAS ASI A PESAR K NOS CONOCIMOS COMO HACEW 4 DIAD KELIA DECILTE KEPOLFI NO MEDEJEDDD NUNCA PORQUE YO DEVELDAD TEAMO YMEGUSTARIA CONOCERTE MIHERMOSAWW DEVERDA TEAMOOOO MUCHOOO SHIII DEVELDADAMO HABLARCON VOS ME GUSTA COMO SOS DE CELOSA AJJAWJJAWJWJJA YBUENOO TEAMOMUCHO OKI NOMEDEJES PORQUE MEMATO.",
+];
+
+/* Esquinas decorativas del marco */
+const corners = ["tl", "tr", "br", "bl"];
+---
+
+<Layout title="Una carta para ti" description="Una carta para vos.">
+  <div class="wash" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== INTRO: EL SOBRE ===================== -->
+  <div id="intro" class="intro">
+    <div class="intro__inner">
+      <p class="intro__kicker" data-intro-item>TIENES UNA CARTA</p>
+
+      <button id="open-btn" class="envelope" aria-label="Abrir la carta">
+        <span class="envelope__shadow" aria-hidden="true"></span>
+        <span class="envelope__back" aria-hidden="true"></span>
+
+        <span class="envelope__paper" aria-hidden="true">
+          <span class="envelope__paper-line w-2/3"></span>
+          <span class="envelope__paper-line w-1/2"></span>
+          <span class="envelope__paper-line w-3/4"></span>
+        </span>
+
+        <span class="envelope__front" aria-hidden="true"></span>
+        <span class="envelope__flap" aria-hidden="true"></span>
+
+        <span class="envelope__seal" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M12 21s-7.5-4.7-9.7-9.2C.7 8.6 2.4 5 5.9 4.3c2-.4 3.9.5 4.9 2 .3.5.5 1 .6 1.5.1-.5.3-1 .6-1.5 1-1.5 2.9-2.4 4.9-2 3.5.7 5.2 4.3 3.6 7.5C19.5 16.3 12 21 12 21z"
+            ></path>
+          </svg>
+        </span>
+      </button>
+
+      <p class="intro__hint" data-intro-item>TOCA EL SOBRE PARA ABRIR</p>
+    </div>
+  </div>
+
+  <!-- ===================== LA CARTA ===================== -->
+  <main class="letter-wrap">
+    <article class="paper" data-anim>
+      {
+        corners.map((c) => (
+          <Corner class={`corner corner--${c}`} />
+        ))
+      }
+
+      <div class="rule" data-anim>
+        <Flower class="rule__flower" />
+      </div>
+
+      <div class="letter">
+        {
+          body.map((text) => (
+            <p data-anim data-split>
+              {text}
+            </p>
+          ))
+        }
+      </div>
+
+      <div class="sprout-wrap" data-anim>
+        <Sprout class="sprout" />
+      </div>
+    </article>
+  </main>
+
+  <script>
+    import "../scripts/letter";
+  </script>
+</Layout>
